@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react'
 
 function Card({
-  temp,
+  temp_c,
   humidity,
-  pressure,
+  pressure_in,
   weatherType,
+  icon,
+  code,
   name,
   speed,
   country,
   sunset,
+  expectation,
 }) {
   const [weatherState, setWeatherState] = useState('')
+  console.log('weatherType', weatherType)
   useEffect(() => {
     if (weatherType) {
+      console.log('weatherType', weatherType)
       switch (weatherType) {
         case 'Clouds':
           setWeatherState('wi-day-cloudy')
@@ -26,7 +31,7 @@ function Card({
         case 'Mist':
           setWeatherState('wi-dust')
           break
-        case 'Rain':
+        case 'Moderate rain':
           setWeatherState('wi-day-rain')
           break
 
@@ -45,11 +50,11 @@ function Card({
     <>
       <article className="widget">
         <div className="weatherIcon">
-          <i className={`wi ${weatherState}`}></i>
+          <img src={icon} alt="icon" height={100} />
         </div>
         <div className="weatherInfo">
           <div className="temperature">
-            <span>{temp}&deg;</span>
+            <span>{temp_c}&deg;</span>
           </div>
           <div className="description">
             <div className="weatherCondition">{weatherType}</div>
@@ -66,8 +71,9 @@ function Card({
                 <i className={'wi wi-sunset'}></i>
               </p>
               <p className="extra-info-leftside">
-                {timeStr} PM <br />
-                Sunset
+                {code}
+                <br />
+                code
               </p>
             </div>
 
@@ -76,8 +82,8 @@ function Card({
                 <i className={'wi wi-humidity'}></i>
               </p>
               <p className="extra-info-leftside">
-                {humidity} <br />
-                Humidity
+                {expectation} <br />
+                feels like
               </p>
             </div>
           </div>
@@ -88,7 +94,7 @@ function Card({
                 <i className={'wi wi-rain'}></i>
               </p>
               <p className="extra-info-leftside">
-                {pressure} <br />
+                {pressure_in} <br />
                 Pressure
               </p>
             </div>

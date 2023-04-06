@@ -8,29 +8,37 @@ function SearchMain() {
 
   const getWeatherInfo = async () => {
     try {
-      let url = `http://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&units=metric&appid=f840f08444c59ce09a2fbb87f9bff214`
+      let url = `https://api.weatherapi.com/v1/current.json?key=5865bf5cf35c47aa908115610230604&q=${searchTerm}&aqi=no`
 
       let res = await fetch(url)
       let data = await res.json()
-      const { temp, humidity, pressure } = data.main
-      const { main: weatherType } = data.weather[0]
-      const { name } = data
-      const { speed } = data.wind
-      const { country, sunset } = data.sys
+      console.log(data)
+      const { temp_c, humidity, pressure_in } = data.current
+      console.log(temp_c, humidity, pressure_in)
+      const { text: weatherType } = data.current.condition
+      const { icon } = data.current.condition
+      const { code } = data.current.condition
+      const { feelslike_f: expectation } = data.current
+      console.log(expectation)
+      const { name } = data.location
+      const { wind_kph: speed } = data.current
+
+      const { country } = data.location
 
       const myNewWeatherInfo = {
-        temp,
+        temp_c,
         humidity,
-        pressure,
+        pressure_in,
         weatherType,
+        icon,
+        code,
         name,
         speed,
+        expectation,
         country,
-        sunset,
       }
 
       setTempInfo(myNewWeatherInfo)
-      // console.log(data);
     } catch (error) {
       console.log(error)
     }

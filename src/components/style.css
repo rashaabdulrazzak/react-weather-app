@@ -114,7 +114,8 @@ body {
   font-weight: 600;
 }
 
-.temp-info-minmax,
+
+.temp-info-minmax ,
 .weather-extra-info,
 .two-sided-section {
   display: grid;
